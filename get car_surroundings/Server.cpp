@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include <Server.h>
+#include "Server.h"
 #include <math.h>
 #include<map>
 #define RANGE 1000
@@ -37,16 +37,10 @@ vector<Vehicle> Server:: getSurroundingVehicles(long id){
     double center_x = veichle->getState()[0];
     double center_y = veichle->getState()[1];
     for(int i = 0; i < cars.size(); i++){
-        if(id != cars[i].getId() && 
-        ( (cars[i].getState[0]-center_x)^2 + (cars[i].getState[1]-center_y)^2 <= RANGE ) ) {
+        if(id != cars[i].getId() &&
+        ( fabs(pow((double)(cars[i].getState()[0]-center_x),2.0) + pow((double)(cars[i].getState()[1]-center_y),2.0) - RANGE) <= 1e-4 ) ) {
             surrounding.push_back(cars[i]);
         }
     }
-    surroundings.insert(pair(id, surrounding));
+    surroundings.insert(pair<long,vector<Vehicle> >(id, surrounding));
 }
-int main(){
-    cout<<"hello world"<<endl;
-}
-
-
-

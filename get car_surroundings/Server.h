@@ -13,7 +13,7 @@ class Vehicle{
         const vector<double> getState();
     private:
         long id;
-        vector<double> State;//å°è½¦çš„çŠ¶æ€ï¼Œç›®å‰é»˜è®¤
+        vector<double> State;//Ğ¡³µµÄ×´Ì¬£¬Ä¿Ç°Ä¬ÈÏ
 };
 #endif;
 #ifndef SERVER_H
@@ -22,12 +22,12 @@ class Server{
     private:
         Server(){}
         static Server * serverInstance;
-        map<long,  vector<Vehicle>>  surroundings;//ä¸€ä¸ªmapå®¹å™¨ï¼Œå°†æ¯ä¸ªå°è½¦çš„ä¿¡æ¯å­˜å‚¨èµ·æ¥
-        vector<Vehicle> cars;//å­˜å‚¨æ‰€æœ‰å°è½¦
+        map<long,  vector<Vehicle> >  surroundings;//Ò»¸ömapÈİÆ÷£¬½«Ã¿¸öĞ¡³µµÄĞÅÏ¢´æ´¢ÆğÀ´
+        vector<Vehicle> cars;//´æ´¢ËùÓĞĞ¡³µ
     public:
         static Server* getInstance();
         vector<Vehicle> getSurroundingVehicles(long id);
         Vehicle getCar(long id);
-        void addCar(Vehicle car);//æ·»åŠ å°è½¦
+        void addCar(Vehicle car);//Ìí¼ÓĞ¡³µ
 };
 #endif
