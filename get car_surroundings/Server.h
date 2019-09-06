@@ -6,28 +6,29 @@ using namespace std;
 #include <iostream>
 #ifndef VEHICLE_H
 #define VEHICLE_H
-class Vehicle{
-    public:
-        Vehicle(double x, double y, double yaw, double v_x, double v_y, double yaw_rate);
-        const long getId();
-        const vector<double> getState();
-    private:
-        long id;
-        vector<double> State;//Ð¡³µµÄ×´Ì¬£¬Ä¿Ç°Ä¬ÈÏ
+class Vehicle {
+public:
+	Vehicle(long id, double x, double y, double yaw, double v_x, double v_y, double yaw_rate);
+	const long getId();
+	const vector<double> getState();
+	bool operator==(Vehicle& vehicle);
+private:
+	long id;
+	vector<double> State;//Ð¡ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ä¿Ç°Ä¬ï¿½ï¿½
 };
 #endif;
 #ifndef SERVER_H
 #define SERVER_H
-class Server{
-    private:
-        Server(){}
-        static Server * serverInstance;
-        map<long,  vector<Vehicle> >  surroundings;//Ò»¸ömapÈÝÆ÷£¬½«Ã¿¸öÐ¡³µµÄÐÅÏ¢´æ´¢ÆðÀ´
-        vector<Vehicle> cars;//´æ´¢ËùÓÐÐ¡³µ
-    public:
-        static Server* getInstance();
-        vector<Vehicle> getSurroundingVehicles(long id);
-        Vehicle getCar(long id);
-        void addCar(Vehicle car);//Ìí¼ÓÐ¡³µ
+class Server {
+private:
+	Server() {}
+	static Server * serverInstance;
+	map<long, vector<Vehicle> >  surroundings;//Ò»ï¿½ï¿½mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½
+	vector<Vehicle> cars;//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
+public:
+	static Server* getInstance();
+	vector<Vehicle> getSurroundingVehicles(long id);
+	Vehicle getCar(long id);
+	void addCar(Vehicle car);//ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
 };
 #endif
