@@ -3,7 +3,7 @@
 #include"Server.h"
 #include <math.h>
 #include<map>
-#define RANGE 100
+#define RANGE 10
 using namespace std;
 Vehicle::Vehicle(long id, double x, double y, double yaw, double v_x, double v_y, double yaw_rate) {
 	this->State.push_back(x);
@@ -13,13 +13,6 @@ Vehicle::Vehicle(long id, double x, double y, double yaw, double v_x, double v_y
 	this->State.push_back(v_y);
 	this->State.push_back(yaw_rate);
 	this->id = id;
-}
-bool Vehicle:: operator==(Vehicle& vehicle){
-	if (this->id == vehicle.id)
-        {
-            return true;
-        }
-        return false;
 }
 
 Server* Server::serverInstance(NULL);
@@ -47,9 +40,6 @@ void Server::addCar(Vehicle car) {
 	this->cars.push_back(car);
 }
 vector<Vehicle> Server::getSurroundingVehicles(long id) {
-	if(surroundings.find(id) != surroundings.end()){
-		return surroundings.at(id);
-	}
 	Vehicle *veichle = NULL;
 	vector<Vehicle> surrounding;
 	for (int i = 0; i < cars.size(); i++) {
@@ -58,10 +48,11 @@ vector<Vehicle> Server::getSurroundingVehicles(long id) {
 		}
 	}
 	double center_x = veichle->getState()[0];
+	cout << (veichle->getState()[1] )<< endl;
 	double center_y = veichle->getState()[1];
 	for (int i = 0; i < cars.size(); i++) {
 		if (id != cars[i].getId() &&
-			(fabs(pow((double)(cars[i].getState()[0] - center_x), 2.0) + pow((double)(cars[i].getState()[1] - center_y), 2.0) - RANGE) <= 1e-4)) {
+			(sqrt(pow(cars[i].getState()[0] - center_x, 2.0) + pow(cars[i].getState()[1] - center_y, 2.0) )<= RANGE) ) {
 			surrounding.push_back(cars[i]);
 		}
 	}
@@ -70,4 +61,13 @@ vector<Vehicle> Server::getSurroundingVehicles(long id) {
 }
 int main() {
 	cout << "hello world" << endl;
+	Server* ser = Server::getInstance();
+	Vehicle* car1 = new Vehicle(1,0,0,0,0,0,0);
+	ser->addCar(*car1);
+	Vehicle* car2 = new Vehicle(2,11,0,0,0,0,0);
+	ser->addCar(*car2);
+	Vehicle* car3 = new Vehicle(3,9,0,0,0,0,0);
+	ser->addCar(*car3);
+	cout << (ser->getSurroundingVehicles(1).size() )<< endl;
+	system("pause");
 }

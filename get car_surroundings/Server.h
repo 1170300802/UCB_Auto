@@ -11,12 +11,11 @@ public:
 	Vehicle(long id, double x, double y, double yaw, double v_x, double v_y, double yaw_rate);
 	const long getId();
 	const vector<double> getState();
-	bool operator==(Vehicle& vehicle);
 private:
 	long id;
 	vector<double> State;//С����״̬��ĿǰĬ��
 };
-#endif;
+#endif
 #ifndef SERVER_H
 #define SERVER_H
 class Server {
