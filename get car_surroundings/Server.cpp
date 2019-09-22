@@ -26,7 +26,12 @@ const vector<double> Vehicle:: getState() {
 }
 
 Vehicle Server::getCar(long id) {
-	return cars[id];
+	for (int i = 0; i <cars.size();i++){
+        if(cars[i].getId() == id){
+            return cars[i];
+        }
+    }
+    throw "there does not exist such a car!";
 }
 
 Server* Server::getInstance() {
